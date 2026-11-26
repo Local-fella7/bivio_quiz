@@ -1,0 +1,146 @@
+[
+  {
+    "text": "What are the main building blocks of Flutter UIs?",
+    "answers": [
+      "Widgets",
+      "Components",
+      "Blocks",
+      "Functions"
+    ],
+    "category": "Flutter Basics",
+    "difficulty": "Easy",
+    "explanation": "Everything in a Flutter UI—layout, text, buttons, and padding—is built by composing immutable Widget objects."
+  },
+  {
+    "text": "How are Flutter UIs built?",
+    "answers": [
+      "By combining widgets in code",
+      "By combining widgets in a visual editor",
+      "By defining widgets in config files",
+      "By using XCode for iOS and Android Studio for Android"
+    ],
+    "category": "Flutter Basics",
+    "difficulty": "Easy",
+    "explanation": "Flutter uses a declarative UI model where you compose nested widget trees directly in Dart code."
+  },
+  {
+    "text": "Which widget should you try to use more often: StatelessWidget or StatefulWidget?",
+    "answers": [
+      "StatelessWidget",
+      "StatefulWidget",
+      "Both are equally good",
+      "None of the above"
+    ],
+    "category": "Flutter Basics",
+    "difficulty": "Medium",
+    "explanation": "StatelessWidgets are simpler, lighter, and easier to maintain whenever a widget does not manage mutable local state."
+  },
+  {
+    "text": "What is the role of a BuildContext in Flutter?",
+    "answers": [
+      "It locates a widget within the element tree",
+      "It stores permanent database records",
+      "It compiles Dart code into native binaries",
+      "It replaces the State class in StatefulWidgets"
+    ],
+    "category": "Flutter Basics",
+    "difficulty": "Hard",
+    "explanation": "BuildContext is a handle to a widget's position in the element tree, enabling lookups like Theme.of(context) and Navigator.of(context)."
+  },
+  {
+    "text": "Which keyword declares a compile-time constant in Dart?",
+    "answers": [
+      "const",
+      "final",
+      "var",
+      "late"
+    ],
+    "category": "Dart",
+    "difficulty": "Easy",
+    "explanation": "const values are evaluated at compile time and canonicalized in memory, whereas final values are set once at runtime."
+  },
+  {
+    "text": "What does the null-aware operator '??' do in Dart?",
+    "answers": [
+      "Returns the right-hand value if the left-hand value is null",
+      "Throws an exception if a variable is null",
+      "Converts a nullable variable into a List",
+      "Checks whether two objects have the same type"
+    ],
+    "category": "Dart",
+    "difficulty": "Medium",
+    "explanation": "The if-null operator (a ?? b) evaluates to a when a is non-null, and otherwise falls back to b."
+  },
+  {
+    "text": "What does the 'async' keyword on a Dart function indicate?",
+    "answers": [
+      "The function returns a Future and can use await",
+      "The function runs automatically on a separate CPU thread",
+      "The function cannot throw any exceptions",
+      "The function executes synchronously before main()"
+    ],
+    "category": "Dart",
+    "difficulty": "Medium",
+    "explanation": "Marking a function async enables the await keyword inside its body and wraps its return value in a Future."
+  },
+  {
+    "text": "How does Dart achieve true parallel execution across CPU cores?",
+    "answers": [
+      "By spawning separate Isolates with their own memory",
+      "By marking every function with async",
+      "By sharing mutable global variables across threads",
+      "By using setState() inside a FutureBuilder"
+    ],
+    "category": "Dart",
+    "difficulty": "Hard",
+    "explanation": "Dart Isolates do not share mutable memory; they communicate via message passing and can run concurrently on multiple CPU cores."
+  },
+  {
+    "text": "What is the purpose of a StatefulWidget?",
+    "answers": [
+      "Update UI as data changes",
+      "Update data as UI changes",
+      "Ignore data changes",
+      "Render UI that does not depend on data"
+    ],
+    "category": "State Management",
+    "difficulty": "Easy",
+    "explanation": "A StatefulWidget pairs an immutable widget configuration with a mutable State object that triggers UI rebuilds when data changes."
+  },
+  {
+    "text": "What happens if you change data in a StatelessWidget?",
+    "answers": [
+      "The UI is not updated",
+      "The UI is updated",
+      "The closest StatefulWidget is updated",
+      "Any nested StatefulWidgets are updated"
+    ],
+    "category": "State Management",
+    "difficulty": "Medium",
+    "explanation": "StatelessWidgets have no internal State object or setState() method, so mutating fields will not trigger a rebuild."
+  },
+  {
+    "text": "How should you update local state inside a StatefulWidget?",
+    "answers": [
+      "By calling setState()",
+      "By calling updateData()",
+      "By calling updateUI()",
+      "By calling updateState()"
+    ],
+    "category": "State Management",
+    "difficulty": "Easy",
+    "explanation": "Calling setState() notifies the Flutter framework that the State object changed so it schedules a rebuild of the widget subtree."
+  },
+  {
+    "text": "Why is InheritedWidget fundamental to Flutter state management packages?",
+    "answers": [
+      "It efficiently propagates data down the tree and rebuilds dependents",
+      "It persists app state to disk automatically",
+      "It replaces the need for BuildContext",
+      "It compiles state changes into SQL queries"
+    ],
+    "category": "State Management",
+    "difficulty": "Hard",
+    "explanation": "Packages like Provider and Riverpod build on InheritedWidget's O(1) lookup and dependency registration to notify only listening widgets."
+  }
+]
