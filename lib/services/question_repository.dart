@@ -5,12 +5,12 @@ import 'package:bivio_quiz/models/quiz_question.dart';
 
 /// Repository responsible for dynamically loading and filtering quiz questions.
 ///
-/// By default, questions are loaded from the bundled JSON asset
-/// `assets/data/questions.json`. To switch to a remote REST API or Firebase
+/// By default, questions are loaded from the bundled Bivio question bank at
+/// `lib/data/bivio-quiz.json`. To switch to a remote REST API or Firebase
 /// endpoint later, only [loadQuestions] needs to be updated.
 class QuestionRepository {
   const QuestionRepository({
-    this.assetPath = 'assets/data/questions.json',
+    this.assetPath = 'lib/data/bivio-quiz.json',
   });
 
   /// Asset path pointing to the JSON question bank.
@@ -22,15 +22,49 @@ class QuestionRepository {
   Future<List<QuizQuestion>> loadQuestions() async {
     try {
       final rawJson = await rootBundle.loadString(assetPath);
-      final decoded = jsonDecode(rawJson) as List<dynamic>;
-      final loaded = decoded
-          .map((item) => QuizQuestion.fromJson(item as Map<String, dynamic>))
-          .toList();
+      final decoded = jsonDecode(rawJson) as Map<String, dynamic>;
+      final loaded = parseQuestionBank(decoded);
       return loaded.isEmpty ? fallbackQuestions : loaded;
     } catch (_) {
       // Gracefully fall back so the app remains usable even if JSON loading fails.
       return fallbackQuestions;
     }
+  }
+
+  /// Converts the Bivio question-bank format into [QuizQuestion] objects.
+  ///
+  /// The JSON stores `answer` as a 0-based index into `options`, while
+  /// [QuizQuestion] expects the correct answer at index 0 so that the UI can
+  /// shuffle a copy without mutating the bank. Category ids are resolved to
+  /// their display names and difficulty values are title-cased for the filters.
+  static List<QuizQuestion> parseQuestionBank(Map<String, dynamic> decoded) {
+    final categoryNames = <String, String>{
+      for (final entry in decoded['categories'] as List<dynamic>? ?? const [])
+        (entry as Map<String, dynamic>)['id'] as String:
+            entry['name'] as String? ?? entry['id'] as String,
+    };
+
+    final questions = decoded['questions'] as List<dynamic>? ?? const [];
+    return questions.map((item) {
+      final question = item as Map<String, dynamic>;
+      final options = List<String>.from(question['options'] as List<dynamic>);
+      final answerIndex = question['answer'] as int;
+      final correctAnswer = options.removeAt(answerIndex);
+
+      final rawCategory = question['category'] as String? ?? 'general';
+      final rawDifficulty = question['difficulty'] as String? ?? 'easy';
+      final difficulty = rawDifficulty.isEmpty
+          ? 'Easy'
+          : rawDifficulty[0].toUpperCase() + rawDifficulty.substring(1);
+
+      return QuizQuestion(
+        text: question['question'] as String,
+        answers: [correctAnswer, ...options],
+        category: categoryNames[rawCategory] ?? rawCategory,
+        difficulty: difficulty,
+        explanation: question['explanation'] as String? ?? '',
+      );
+    }).toList();
   }
 
   /// Filters [allQuestions] by the selected [category] and [difficulty].

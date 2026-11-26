@@ -1,8 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:printing/printing.dart';
 import 'package:bivio_quiz/models/quiz_question.dart';
 import 'package:bivio_quiz/questions_summary/questions_summary.dart';
+import 'package:bivio_quiz/services/pdf_download_service.dart';
+import 'package:bivio_quiz/services/quiz_pdf_service.dart';
 import 'package:bivio_quiz/widgets/celebration_flowers.dart';
 
 /// Final screen shown after the user completes all active quiz questions.
@@ -11,7 +15,9 @@ import 'package:bivio_quiz/widgets/celebration_flowers.dart';
 /// - Total score (`You answered X out of N questions correctly!`) and percentage
 /// - Persisted best score badge
 /// - Scrollable [QuestionsSummary] with answer explanations
-/// - Action buttons to **Share Result**, **Restart Quiz**, or return **Home**
+/// - A **Share Result** action offering a detailed PDF report (share, download
+///   or print) plus a plain-text copy
+/// - Action buttons to **Restart Quiz** or return **Home**
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen({
     super.key,
@@ -22,6 +28,7 @@ class ResultsScreen extends StatelessWidget {
     required this.difficulty,
     required this.onRestart,
     required this.onReturnHome,
+    this.pdfService = const QuizPdfService(),
   });
 
   /// The exact list of questions asked in this session.
@@ -45,6 +52,9 @@ class ResultsScreen extends StatelessWidget {
   /// Returns the user to [StartScreen] to change filters or view history.
   final void Function() onReturnHome;
 
+  /// Builds the PDF report shared or downloaded from this screen.
+  final QuizPdfService pdfService;
+
   /// Pairs each question with its canonical correct answer, user answer, and explanation.
   List<Map<String, Object>> get summaryData {
     final List<Map<String, Object>> summary = [];
@@ -62,8 +72,53 @@ class ResultsScreen extends StatelessWidget {
     return summary;
   }
 
-  /// Copies a formatted score summary to the system clipboard and notifies the user.
-  Future<void> _shareResult(
+  /// Generates the PDF bytes for the current session.
+  Future<Uint8List> _buildPdf() {
+    return pdfService.generate(
+      questions: questions,
+      chosenAnswers: chosenAnswers,
+      category: category,
+      difficulty: difficulty,
+      bestPercentage: bestPercentage,
+    );
+  }
+
+  /// Shows the share sheet with options for WhatsApp, Files, email, and more.
+  Future<void> _sharePdf(BuildContext context) async {
+    try {
+      final bytes = await _buildPdf();
+      await Printing.sharePdf(
+        bytes: bytes,
+        filename: QuizPdfService.suggestedFileName(),
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      _showMessage(context, 'Could not share the PDF. Please try again.');
+    }
+  }
+
+  /// Saves the PDF to Downloads, or starts a browser download on web.
+  Future<void> _downloadPdf(BuildContext context) async {
+    try {
+      final bytes = await _buildPdf();
+      final filename = QuizPdfService.suggestedFileName();
+      final savedPath = await downloadPdfBytes(bytes, filename);
+      if (!context.mounted) return;
+      _showMessage(
+        context,
+        savedPath == null
+            ? 'PDF download started.'
+            : 'PDF saved to $savedPath',
+      );
+    } catch (error) {
+      debugPrint('PDF download failed: $error');
+      if (!context.mounted) return;
+      _showMessage(context, 'Could not download the PDF. Please try again.');
+    }
+  }
+
+  /// Copies a formatted score summary to the system clipboard.
+  Future<void> _copySummary(
     BuildContext context, {
     required int numCorrect,
     required int numTotal,
@@ -74,13 +129,94 @@ class ResultsScreen extends StatelessWidget {
         '[$category • $difficulty]';
 
     await Clipboard.setData(ClipboardData(text: shareText));
+    if (!context.mounted) return;
+    _showMessage(context, 'Result copied to clipboard!');
+  }
 
+  /// Presents PDF share/download and text-copy actions to the user.
+  void _showShareOptions(
+    BuildContext context, {
+    required int numCorrect,
+    required int numTotal,
+    required int percentage,
+  }) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: const Color(0xFF0A2463),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (sheetContext) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Share your result',
+                style: TextStyle(
+                  color: Color(0xFFF8FAE5),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              ListTile(
+                leading: const Icon(Icons.picture_as_pdf_outlined,
+                    color: Color(0xFFF8FAE5)),
+                title: const Text('Share PDF',
+                    style: TextStyle(color: Color(0xFFF8FAE5))),
+                subtitle: const Text('WhatsApp, Files, email and other apps',
+                    style: TextStyle(color: Colors.white70)),
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+                  _sharePdf(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.download_outlined,
+                    color: Color(0xFFF8FAE5)),
+                title: const Text('Download / print PDF',
+                    style: TextStyle(color: Color(0xFFF8FAE5))),
+                subtitle: const Text('Save as a PDF file or send to a printer',
+                    style: TextStyle(color: Colors.white70)),
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+                  _downloadPdf(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.copy_outlined,
+                    color: Color(0xFFF8FAE5)),
+                title: const Text('Copy text summary',
+                    style: TextStyle(color: Color(0xFFF8FAE5))),
+                subtitle: const Text('Paste a short score into any app',
+                    style: TextStyle(color: Colors.white70)),
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+                  _copySummary(
+                    context,
+                    numCorrect: numCorrect,
+                    numTotal: numTotal,
+                    percentage: percentage,
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Shows a short floating message without blocking the current screen.
+  void _showMessage(BuildContext context, String message) {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Result copied to clipboard!'),
+      SnackBar(
+        content: Text(message),
         behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
@@ -178,7 +314,7 @@ class ResultsScreen extends StatelessWidget {
                       alignment: WrapAlignment.center,
                       children: [
                         OutlinedButton.icon(
-                          onPressed: () => _shareResult(
+                          onPressed: () => _showShareOptions(
                             context,
                             numCorrect: numCorrectQuestions,
                             numTotal: numTotalQuestions,

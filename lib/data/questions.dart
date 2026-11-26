@@ -1,87 +1,86 @@
 import 'package:bivio_quiz/models/quiz_question.dart';
 
-/// Fallback in-memory question bank used if loading `assets/data/questions.json`
+/// Fallback in-memory question bank used if loading `lib/data/bivio-quiz.json`
 /// ever fails (for example, in stripped test environments).
 ///
 /// Primary question loading happens dynamically in [QuestionRepository].
 const List<QuizQuestion> fallbackQuestions = [
   QuizQuestion(
-    text: 'What are the main building blocks of Flutter UIs?',
+    text: 'What determines which screens and actions are available to you in Bivio?',
     answers: [
-      'Widgets',
-      'Components',
-      'Blocks',
-      'Functions',
+      'Your company configuration and your assigned role',
+      'Your browser type and screen size',
+      'The time of day and your physical location',
+      'Your subscription price and device model',
     ],
-    category: 'Flutter Basics',
+    category: 'Essentials & Access',
     difficulty: 'Easy',
     explanation:
-        'Everything in a Flutter UI is built by composing immutable Widget objects.',
+        'Your company configuration and role determine which screens and actions appear.',
   ),
   QuizQuestion(
-    text: 'How are Flutter UIs built?',
+    text: 'How do you sign in to Quick View (waiter PIN login)?',
     answers: [
-      'By combining widgets in code',
-      'By combining widgets in a visual editor',
-      'By defining widgets in config files',
-      'By using XCode for iOS and Android Studio for Android',
+      'Company code and a 4-digit PIN',
+      'Email address and password',
+      'Table number and waiter name',
+      'QR token and bill number',
     ],
-    category: 'Flutter Basics',
+    category: 'Essentials & Access',
     difficulty: 'Easy',
     explanation:
-        'Flutter uses a declarative UI model where you compose nested widget trees directly in Dart code.',
+        'Quick View uses a company code plus a 4-digit PIN entered on the on-screen keypad.',
   ),
   QuizQuestion(
-    text: 'What is the purpose of a StatefulWidget?',
+    text: 'What must happen to an order before it can be turned into a bill?',
     answers: [
-      'Update UI as data changes',
-      'Update data as UI changes',
-      'Ignore data changes',
-      'Render UI that does not depend on data',
+      'It must be closed / approved',
+      'It must be cancelled',
+      'It must be paid',
+      'It must be printed',
     ],
-    category: 'State Management',
+    category: 'Sales, Orders & Bills',
     difficulty: 'Easy',
     explanation:
-        'A StatefulWidget pairs an immutable widget with a mutable State object that triggers rebuilds when data changes.',
+        'Only closed/approved orders are eligible for billing; saving an Open order is not enough.',
   ),
   QuizQuestion(
-    text:
-        'Which widget should you try to use more often: StatelessWidget or StatefulWidget?',
+    text: 'What is the difference between a purchase and a delivery?',
     answers: [
-      'StatelessWidget',
-      'StatefulWidget',
-      'Both are equally good',
-      'None of the above',
+      'A purchase records supplier/cost; a delivery records actual receipt',
+      'They are the same transaction',
+      'A delivery happens before a purchase',
+      'A purchase updates stock directly',
     ],
-    category: 'Flutter Basics',
+    category: 'Inventory & Purchasing',
+    difficulty: 'Easy',
+    explanation:
+        'Purchases record what was bought from which supplier; deliveries record what actually arrived.',
+  ),
+  QuizQuestion(
+    text: 'How do PIN sessions affect the password-change prompt in Quick Mode?',
+    answers: [
+      'They bypass password-change prompts and cannot open the change-password page',
+      'They must change their password before taking orders',
+      'They are logged out every hour',
+      'They require email sign-in for every order',
+    ],
+    category: 'Quick Mode',
     difficulty: 'Medium',
     explanation:
-        'StatelessWidgets are simpler and lighter whenever a widget does not manage mutable local state.',
+        'PIN sessions bypass password-change prompts and cannot open the change-password page.',
   ),
   QuizQuestion(
-    text: 'What happens if you change data in a StatelessWidget?',
+    text: 'Why might a button in Bivio be disabled?',
     answers: [
-      'The UI is not updated',
-      'The UI is updated',
-      'The closest StatefulWidget is updated',
-      'Any nested StatefulWidgets are updated',
+      'Your role or the record\'s status does not allow the action',
+      'Your browser zoom level',
+      'The network speed',
+      'The screen size',
     ],
-    category: 'State Management',
-    difficulty: 'Medium',
-    explanation:
-        'StatelessWidgets have no State object or setState() method, so mutating fields does not rebuild the UI.',
-  ),
-  QuizQuestion(
-    text: 'How should you update local state inside a StatefulWidget?',
-    answers: [
-      'By calling setState()',
-      'By calling updateData()',
-      'By calling updateUI()',
-      'By calling updateState()',
-    ],
-    category: 'State Management',
+    category: 'Troubleshooting',
     difficulty: 'Easy',
     explanation:
-        'Calling setState() tells Flutter that state changed so it schedules a rebuild of the widget subtree.',
+        'A button may be hidden or disabled when your role or the record status does not allow the action.',
   ),
 ];

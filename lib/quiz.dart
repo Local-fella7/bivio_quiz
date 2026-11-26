@@ -11,7 +11,7 @@ import 'package:bivio_quiz/start_screen.dart';
 /// Root stateful controller for Bivio Quiz.
 ///
 /// Manages:
-/// - Dynamic question loading from `assets/data/questions.json` via [QuestionRepository]
+/// - Dynamic question loading from `lib/data/bivio-quiz.json` via [QuestionRepository]
 /// - Local score & history persistence via [QuizStorageService]
 /// - Active screen state (`'start-screen'`, `'questions-screen'`, `'results-screen'`)
 /// - Category/difficulty filtering, countdown timer toggle, and sound/haptics toggle
