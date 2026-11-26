@@ -41,46 +41,46 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Learn Bivio easy way'), findsOneWidget);
-    expect(find.text('Start Quiz (12 questions)'), findsOneWidget);
-    expect(find.text('Flutter Basics'), findsOneWidget);
-    expect(find.text('Dart'), findsOneWidget);
-    expect(find.text('State Management'), findsOneWidget);
+    expect(find.text('Start Quiz (64 questions)'), findsOneWidget);
+    expect(find.text('Essentials & Access'), findsOneWidget);
+    expect(find.text('Sales, Orders & Bills'), findsOneWidget);
+    expect(find.text('Quick Mode'), findsOneWidget);
   });
 
   testWidgets(
       'Category filtering, full quiz flow, explanations, Home, and history work',
       (WidgetTester tester) async {
-    // Read the JSON question bank synchronously for test assertions.
-    final rawJson = File('assets/data/questions.json').readAsStringSync();
-    final allQuestions = (jsonDecode(rawJson) as List<dynamic>)
-        .map((item) => QuizQuestion.fromJson(item as Map<String, dynamic>))
-        .toList();
-    final dartQuestions = QuestionRepository.filterQuestions(
+    // Read the Bivio JSON question bank synchronously for test assertions.
+    final rawJson = File('lib/data/bivio-quiz.json').readAsStringSync();
+    final allQuestions = QuestionRepository.parseQuestionBank(
+      jsonDecode(rawJson) as Map<String, dynamic>,
+    );
+    final bivioQuestions = QuestionRepository.filterQuestions(
       allQuestions: allQuestions,
-      category: 'Dart',
+      category: 'Essentials & Access',
       difficulty: 'All',
     );
-    expect(dartQuestions.length, 4);
+    expect(bivioQuestions.length, 10);
 
     await tester.pumpWidget(
       Quiz(questionRepository: _InMemoryQuestionRepository(allQuestions)),
     );
     await tester.pumpAndSettle();
 
-    // Filter to the "Dart" category and verify the count updates to 4.
-    await tester.tap(find.text('Dart'));
+    // Filter to the "Essentials & Access" category and verify the count.
+    await tester.tap(find.text('Essentials & Access'));
     await tester.pumpAndSettle();
-    expect(find.text('Start Quiz (4 questions)'), findsOneWidget);
+    expect(find.text('Start Quiz (10 questions)'), findsOneWidget);
 
     // Start the filtered quiz.
-    await tester.ensureVisible(find.text('Start Quiz (4 questions)'));
-    await tester.tap(find.text('Start Quiz (4 questions)'));
+    await tester.ensureVisible(find.text('Start Quiz (10 questions)'));
+    await tester.tap(find.text('Start Quiz (10 questions)'));
     await tester.pumpAndSettle();
 
-    // Answer every Dart question correctly, waiting through the 650ms feedback delay.
-    for (var i = 0; i < dartQuestions.length; i++) {
-      final question = dartQuestions[i];
-      expect(find.text('Question ${i + 1} of ${dartQuestions.length}'),
+    // Answer every question correctly, waiting through the 650ms feedback delay.
+    for (var i = 0; i < bivioQuestions.length; i++) {
+      final question = bivioQuestions[i];
+      expect(find.text('Question ${i + 1} of ${bivioQuestions.length}'),
           findsOneWidget);
       expect(find.text(question.text), findsOneWidget);
 
@@ -96,11 +96,11 @@ void main() {
     expect(find.text('Great Job! 🌸'), findsOneWidget);
     expect(
       find.text(
-        'You answered ${dartQuestions.length} out of ${dartQuestions.length} questions correctly!',
+        'You answered ${bivioQuestions.length} out of ${bivioQuestions.length} questions correctly!',
       ),
       findsOneWidget,
     );
-    expect(find.text(dartQuestions.first.explanation), findsOneWidget);
+    expect(find.text(bivioQuestions.first.explanation), findsOneWidget);
     expect(find.text('Share Result'), findsOneWidget);
     expect(find.text('Restart Quiz'), findsOneWidget);
     expect(find.text('Home'), findsOneWidget);

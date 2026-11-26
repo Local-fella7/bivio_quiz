@@ -1,0 +1,1057 @@
+{
+  "meta": {
+    "title": "Bivio User Knowledge Quiz",
+    "description": "Multiple-choice questions about everyday Bivio operations, based on the Bivio user manual and internal workflow documentation.",
+    "version": "1.0.0",
+    "language": "en",
+    "basedOn": [
+      "docs/user-manual/source/content.mjs (user manual v1.1, 28/10/2026)",
+      "docs/inventory/stock-taking-sessions.md",
+      "docs-internal/quick-mode.md"
+    ],
+    "answerFormat": "answer is the 0-based index into the options array",
+    "questionCount": 64
+  },
+  "categories": [
+    { "id": "essentials", "name": "Essentials & Access" },
+    { "id": "sales", "name": "Sales, Orders & Bills" },
+    { "id": "inventory", "name": "Inventory & Purchasing" },
+    { "id": "reports", "name": "Reports" },
+    { "id": "setup", "name": "Setup & Administration" },
+    { "id": "quick", "name": "Quick Mode" },
+    { "id": "troubleshooting", "name": "Troubleshooting" }
+  ],
+  "difficulties": ["easy", "medium", "hard"],
+  "questions": [
+    {
+      "id": "ess-001",
+      "category": "essentials",
+      "difficulty": "easy",
+      "audience": ["all"],
+      "question": "What determines which screens and actions are available to you in Bivio?",
+      "options": [
+        "Your company configuration and your assigned role",
+        "Your browser type and screen size",
+        "The time of day and your physical location",
+        "Your subscription price and device model"
+      ],
+      "answer": 0,
+      "explanation": "Your company configuration and role determine which screens and actions appear.",
+      "source": "user-manual:introduction"
+    },
+    {
+      "id": "ess-002",
+      "category": "essentials",
+      "difficulty": "easy",
+      "audience": ["waiter", "cashier", "all"],
+      "question": "How do you sign in to Quick View (waiter PIN login)?",
+      "options": [
+        "Email address and password",
+        "Company code and a 4-digit PIN",
+        "Table number and waiter name",
+        "QR token and bill number"
+      ],
+      "answer": 1,
+      "explanation": "Quick View uses a company code plus a 4-digit PIN entered on the on-screen keypad.",
+      "source": "user-manual:getting-started"
+    },
+    {
+      "id": "ess-003",
+      "category": "essentials",
+      "difficulty": "easy",
+      "audience": ["all"],
+      "question": "What are the training credentials for exploring Quick View in the demo company?",
+      "options": [
+        "demo / 8520",
+        "admin / 1234",
+        "demo / 1234",
+        "test / 8520"
+      ],
+      "answer": 0,
+      "explanation": "The manual documents company code 'demo' and PIN '8520' as training credentials only.",
+      "source": "user-manual:getting-started"
+    },
+    {
+      "id": "ess-004",
+      "category": "essentials",
+      "difficulty": "easy",
+      "audience": ["all"],
+      "question": "What should you check first after signing in?",
+      "options": [
+        "The printer queue",
+        "The company name shown on the dashboard",
+        "The exchange rates list",
+        "The number of notifications"
+      ],
+      "answer": 1,
+      "explanation": "Check the company shown on the dashboard; ask your administrator if it is wrong.",
+      "source": "user-manual:getting-started"
+    },
+    {
+      "id": "ess-005",
+      "category": "essentials",
+      "difficulty": "easy",
+      "audience": ["all"],
+      "question": "When is it appropriate to use 'Remember me' at sign-in?",
+      "options": [
+        "Only on a device you control",
+        "Always, especially on shared tills",
+        "Never, under any circumstances",
+        "Only when using Quick View"
+      ],
+      "answer": 0,
+      "explanation": "Only use Remember me on a device you control; log out after your shift on shared devices.",
+      "source": "user-manual:getting-started"
+    },
+    {
+      "id": "ess-006",
+      "category": "essentials",
+      "difficulty": "medium",
+      "audience": ["all"],
+      "question": "What should you do if Bivio reports that access has expired?",
+      "options": [
+        "Retry the payment until it succeeds",
+        "Create a new order to refresh the session",
+        "Contact your vendor or company administrator",
+        "Clear all list filters"
+      ],
+      "answer": 2,
+      "explanation": "Retrying a payment or order will not renew access; contact the vendor or administrator.",
+      "source": "user-manual:getting-started"
+    },
+    {
+      "id": "ess-007",
+      "category": "essentials",
+      "difficulty": "medium",
+      "audience": ["all"],
+      "question": "What happens when you clear a notification in Bivio?",
+      "options": [
+        "The related bill is paid automatically",
+        "The LPO is approved automatically",
+        "Only the reminder is removed; the operational record still needs attention",
+        "The low-stock item is reordered"
+      ],
+      "answer": 2,
+      "explanation": "Clearing a notification does not pay a bill, approve an LPO or resolve low stock.",
+      "source": "user-manual:notifications"
+    },
+    {
+      "id": "ess-008",
+      "category": "essentials",
+      "difficulty": "easy",
+      "audience": ["manager", "cashier", "supervisor"],
+      "question": "How do you open the full list behind a dashboard activity panel?",
+      "options": [
+        "Select 'View All' on the panel",
+        "Open Settings → Data Import",
+        "Use the browser print dialog",
+        "Select the notification bell"
+      ],
+      "answer": 0,
+      "explanation": "Dashboard activity panels provide a View All action that opens the full module.",
+      "source": "user-manual:dashboard"
+    },
+    {
+      "id": "ess-009",
+      "category": "essentials",
+      "difficulty": "medium",
+      "audience": ["cashier", "supervisor"],
+      "question": "Which paper setup is correct for receipts versus reports?",
+      "options": [
+        "80 mm for receipts, A4 for reports",
+        "A4 for receipts, 80 mm for reports",
+        "A4 for both",
+        "Any size; Bivio resizes automatically"
+      ],
+      "answer": 0,
+      "explanation": "The receipt template uses 80 mm paper; reports and the manual are A4.",
+      "source": "user-manual:printing"
+    },
+    {
+      "id": "ess-010",
+      "category": "essentials",
+      "difficulty": "medium",
+      "audience": ["all"],
+      "question": "Is Bivio documented as an offline point-of-sale system?",
+      "options": [
+        "Yes, orders queue offline and sync later",
+        "No; verify saved records after a connection interruption",
+        "Yes, but only in Quick Mode",
+        "Yes, but only for printing"
+      ],
+      "answer": 1,
+      "explanation": "Bivio is not documented as an offline POS; verify saved records after a connection interruption.",
+      "source": "user-manual:mobile"
+    },
+
+    {
+      "id": "sal-001",
+      "category": "sales",
+      "difficulty": "easy",
+      "audience": ["waiter", "cashier", "supervisor"],
+      "question": "What must happen to an order before it can be turned into a bill?",
+      "options": [
+        "It must be cancelled",
+        "It must be paid",
+        "It must be closed / approved",
+        "It must be printed"
+      ],
+      "answer": 2,
+      "explanation": "Only closed/approved orders are eligible for billing; saving an Open order is not enough.",
+      "source": "user-manual:orders"
+    },
+    {
+      "id": "sal-002",
+      "category": "sales",
+      "difficulty": "easy",
+      "audience": ["waiter", "supervisor"],
+      "question": "Where should a request such as 'no ice' be recorded on an order?",
+      "options": [
+        "In the order note at the top of the form",
+        "In the item note on the product row",
+        "In the client record",
+        "In the bill remarks"
+      ],
+      "answer": 1,
+      "explanation": "Use the Item note field on the individual product row for preparation requests.",
+      "source": "user-manual:orders"
+    },
+    {
+      "id": "sal-003",
+      "category": "sales",
+      "difficulty": "easy",
+      "audience": ["waiter", "supervisor"],
+      "question": "Which two selections start a standard staff order?",
+      "options": [
+        "Client and currency",
+        "Waiter and table",
+        "Department and supplier",
+        "Menu and template"
+      ],
+      "answer": 1,
+      "explanation": "The standard order form starts by selecting the waiter and the table.",
+      "source": "user-manual:orders"
+    },
+    {
+      "id": "sal-004",
+      "category": "sales",
+      "difficulty": "easy",
+      "audience": ["all"],
+      "question": "What is the difference between a product and an item in Bivio?",
+      "options": [
+        "A product is what you sell; an item is what you stock",
+        "They are the same record with different labels",
+        "An item is what you sell; a product is what you stock",
+        "Products exist only in Quick Mode"
+      ],
+      "answer": 0,
+      "explanation": "A product is sold to customers; an item is held in inventory.",
+      "source": "user-manual:products"
+    },
+    {
+      "id": "sal-005",
+      "category": "sales",
+      "difficulty": "medium",
+      "audience": ["cashier", "supervisor"],
+      "question": "On which form do you select a Client / customer?",
+      "options": [
+        "Order form",
+        "Bill form",
+        "Requisition form",
+        "Menu form"
+      ],
+      "answer": 1,
+      "explanation": "The Client selector is on the bill form, not on the order screen.",
+      "source": "user-manual:clients"
+    },
+    {
+      "id": "sal-006",
+      "category": "sales",
+      "difficulty": "medium",
+      "audience": ["cashier", "supervisor"],
+      "question": "How is a bill Discount applied in this build?",
+      "options": [
+        "Always as a percentage",
+        "As a monetary amount in the selected currency, subtracted from the subtotal",
+        "As a tip collected for staff",
+        "As the amount already paid"
+      ],
+      "answer": 1,
+      "explanation": "The discount is a monetary amount in the selected currency and is subtracted from the subtotal.",
+      "source": "user-manual:bills"
+    },
+    {
+      "id": "sal-007",
+      "category": "sales",
+      "difficulty": "easy",
+      "audience": ["cashier"],
+      "question": "Does a tip reduce the outstanding balance of a bill?",
+      "options": [
+        "Yes, always",
+        "No, it is entered separately and does not reduce the bill balance",
+        "Yes, but only for card payments",
+        "Yes, but only if it exceeds the bill amount"
+      ],
+      "answer": 1,
+      "explanation": "Tips are entered in Tip Amount separately and do not reduce the bill balance.",
+      "source": "user-manual:payments"
+    },
+    {
+      "id": "sal-008",
+      "category": "sales",
+      "difficulty": "easy",
+      "audience": ["cashier"],
+      "question": "A payment request times out. What should you do first?",
+      "options": [
+        "Retry the payment immediately several times",
+        "Check the bill and payment history before retrying",
+        "Close the browser and reopen Bivio",
+        "Cancel the bill"
+      ],
+      "answer": 1,
+      "explanation": "Check payment history first so that money is not recorded twice.",
+      "source": "user-manual:payments"
+    },
+    {
+      "id": "sal-009",
+      "category": "sales",
+      "difficulty": "medium",
+      "audience": ["cashier", "supervisor"],
+      "question": "Which orders appear under 'Approved Orders' in the bill form?",
+      "options": [
+        "Every Open order",
+        "Closed/eligible orders ready for billing",
+        "Cancelled orders",
+        "Only guest QR orders"
+      ],
+      "answer": 1,
+      "explanation": "The bill form lists eligible closed/approved orders under Approved Orders.",
+      "source": "user-manual:orders"
+    },
+    {
+      "id": "sal-010",
+      "category": "sales",
+      "difficulty": "hard",
+      "audience": ["manager", "supervisor"],
+      "question": "How does the current menu editor handle 'Custom' repetition?",
+      "options": [
+        "It allows multiple weekdays to be selected",
+        "It uses a single-day choice under 'Repeat on'",
+        "It has no weekday option",
+        "It repeats for the whole month"
+      ],
+      "answer": 1,
+      "explanation": "The current editor supports a single weekday choice for Custom repetition.",
+      "source": "user-manual:menus"
+    },
+    {
+      "id": "sal-011",
+      "category": "sales",
+      "difficulty": "medium",
+      "audience": ["manager", "supervisor"],
+      "question": "When an item runs low on stock, is it automatically hidden from menus?",
+      "options": [
+        "Yes, menus update instantly",
+        "No; review the menu and inventory separately",
+        "Yes, but only in Quick Mode",
+        "Yes, but only for beverages"
+      ],
+      "answer": 1,
+      "explanation": "Do not assume an item is hidden when stock runs low; check menu and inventory separately.",
+      "source": "user-manual:menus"
+    },
+    {
+      "id": "sal-012",
+      "category": "sales",
+      "difficulty": "medium",
+      "audience": ["waiter", "supervisor"],
+      "question": "Which guest orders can be claimed with 'Claim guest order'?",
+      "options": [
+        "Any order in the list",
+        "Only unclaimed, open guest orders, with order-edit permission",
+        "Only bills that are already paid",
+        "Any order, regardless of permission"
+      ],
+      "answer": 1,
+      "explanation": "Only unclaimed open guest orders show the action, and claiming requires order-edit permission.",
+      "source": "user-manual:guest-qr"
+    },
+    {
+      "id": "sal-013",
+      "category": "sales",
+      "difficulty": "easy",
+      "audience": ["all"],
+      "question": "Do guests need a staff account to place an order through a table QR menu?",
+      "options": [
+        "Yes, they sign in with a waiter PIN",
+        "No, it is a system-generated order source, not a staff account",
+        "Yes, they use their client account",
+        "Only when paying a deposit"
+      ],
+      "answer": 1,
+      "explanation": "Guest QR is a system-generated order source; guests do not sign in with staff credentials.",
+      "source": "user-manual:guest-qr"
+    },
+
+    {
+      "id": "inv-001",
+      "category": "inventory",
+      "difficulty": "medium",
+      "audience": ["storekeeper", "manager"],
+      "question": "One carton contains 24 bottles and the recipe unit is Bottle. What is the wholesale-to-recipe factor?",
+      "options": [
+        "1",
+        "24",
+        "25",
+        "0.24"
+      ],
+      "answer": 1,
+      "explanation": "If one carton contains 24 bottles and the recipe unit is Bottle, the factor is 24.",
+      "source": "user-manual:items"
+    },
+    {
+      "id": "inv-002",
+      "category": "inventory",
+      "difficulty": "medium",
+      "audience": ["storekeeper", "manager"],
+      "question": "What happens when you open an item record and save it without other actions?",
+      "options": [
+        "An opening stock balance is created",
+        "The setup is saved, but no opening stock balance is entered",
+        "A delivery is posted",
+        "Stock is reserved for recipes"
+      ],
+      "answer": 1,
+      "explanation": "Opening an item record does not enter an opening stock balance.",
+      "source": "user-manual:items"
+    },
+    {
+      "id": "inv-003",
+      "category": "inventory",
+      "difficulty": "medium",
+      "audience": ["storekeeper", "procurement", "approver"],
+      "question": "What does an LPO status of 'Approved' mean?",
+      "options": [
+        "The goods have been received",
+        "The request is approved and awaiting purchase",
+        "The supplier has been paid",
+        "The LPO has been cancelled"
+      ],
+      "answer": 1,
+      "explanation": "Approved means approved and awaiting purchase; it does not mean goods were received.",
+      "source": "user-manual:lpo"
+    },
+    {
+      "id": "inv-004",
+      "category": "inventory",
+      "difficulty": "easy",
+      "audience": ["storekeeper", "procurement"],
+      "question": "What is the difference between a purchase and a delivery?",
+      "options": [
+        "A purchase records supplier/cost; a delivery records actual receipt",
+        "They are the same transaction",
+        "A delivery happens before a purchase",
+        "A purchase updates stock directly"
+      ],
+      "answer": 0,
+      "explanation": "Purchases record what was bought from which supplier; deliveries record what actually arrived.",
+      "source": "user-manual:purchases"
+    },
+    {
+      "id": "inv-005",
+      "category": "inventory",
+      "difficulty": "easy",
+      "audience": ["storekeeper", "receiving"],
+      "question": "Only part of an ordered quantity arrived. What should you enter on the delivery?",
+      "options": [
+        "The full ordered quantity",
+        "The quantity actually delivered",
+        "Zero, and cancel the purchase",
+        "The remaining LPO quantity"
+      ],
+      "answer": 1,
+      "explanation": "Enter the quantity actually received and check the line and unit before saving.",
+      "source": "user-manual:deliveries"
+    },
+    {
+      "id": "inv-006",
+      "category": "inventory",
+      "difficulty": "easy",
+      "audience": ["storekeeper", "department staff"],
+      "question": "What is the correct order of the requisition workflow?",
+      "options": [
+        "Request → approval → issue → department",
+        "Issue → request → approval → department",
+        "Request → issue → approval → department",
+        "Approval → request → issue → department"
+      ],
+      "answer": 0,
+      "explanation": "A department requests stock, it is approved, then the storekeeper issues it to the department.",
+      "source": "user-manual:requisitions"
+    },
+    {
+      "id": "inv-007",
+      "category": "inventory",
+      "difficulty": "medium",
+      "audience": ["storekeeper", "procurement"],
+      "question": "On which requisitions is 'Create LPO for remaining items' available?",
+      "options": [
+        "Any requisition, including drafts",
+        "Approved or partially issued requisitions",
+        "Only cancelled requisitions",
+        "Only delivered purchase orders"
+      ],
+      "answer": 1,
+      "explanation": "The action groups remaining quantities from approved or partially issued requisitions.",
+      "source": "user-manual:requisitions"
+    },
+    {
+      "id": "inv-008",
+      "category": "inventory",
+      "difficulty": "hard",
+      "audience": ["storekeeper", "counter"],
+      "question": "In a stock taking, what happens to entered counts when you switch the category filter?",
+      "options": [
+        "All entered counts are cleared",
+        "Entered counts are kept",
+        "The stock taking is posted automatically",
+        "Variance rows are hidden permanently"
+      ],
+      "answer": 1,
+      "explanation": "Switching categories keeps entered counts; Clear All resets filters and pagination, not quantities.",
+      "source": "user-manual:stock-taking"
+    },
+    {
+      "id": "inv-009",
+      "category": "inventory",
+      "difficulty": "easy",
+      "audience": ["storekeeper", "manager"],
+      "question": "What is the most likely reason a stock taking cannot be posted?",
+      "options": [
+        "No search filter is active",
+        "A printer is not connected",
+        "Variance remarks are missing on some lines",
+        "No supplier is selected"
+      ],
+      "answer": 2,
+      "explanation": "Posting requires remarks/reasons for every variance line.",
+      "source": "user-manual:stock-taking"
+    },
+    {
+      "id": "inv-010",
+      "category": "inventory",
+      "difficulty": "medium",
+      "audience": ["storekeeper", "counter"],
+      "question": "What does 'Print Sheet' produce during a stock taking?",
+      "options": [
+        "Only the currently visible category",
+        "A full inventory count sheet regardless of the editor's category filter",
+        "Only rows with variances",
+        "Only items that have already been counted"
+      ],
+      "answer": 1,
+      "explanation": "The print sheet is the full inventory count sheet; the editor's category filter does not limit it.",
+      "source": "user-manual:stock-taking"
+    },
+    {
+      "id": "inv-011",
+      "category": "inventory",
+      "difficulty": "easy",
+      "audience": ["storekeeper", "manager"],
+      "question": "What should accompany a stock adjustment?",
+      "options": [
+        "No explanation is needed",
+        "Remarks explaining the correction, such as damage or expiry",
+        "A supplier invoice number only",
+        "A bill number"
+      ],
+      "answer": 1,
+      "explanation": "Adjustments should be explained with remarks such as damage, expiry, waste or physical correction.",
+      "source": "user-manual:adjustments"
+    },
+    {
+      "id": "inv-012",
+      "category": "inventory",
+      "difficulty": "hard",
+      "audience": ["manager", "accounts"],
+      "question": "What does the ledger summary's 'Total Stock Value' currently represent?",
+      "options": [
+        "A monetary valuation of stock",
+        "A sum of stock quantities, not money",
+        "The total of today's bills",
+        "Always zero"
+      ],
+      "answer": 1,
+      "explanation": "The ledger summary currently sums stock quantities, not money; do not use it as a financial valuation.",
+      "source": "user-manual:inventory"
+    },
+    {
+      "id": "inv-013",
+      "category": "inventory",
+      "difficulty": "hard",
+      "audience": ["storekeeper", "counter"],
+      "question": "With 25 tots per bottle, a count of 1 bottle and 20 tots equals how many bottles?",
+      "options": [
+        "1.20 bottles",
+        "1.80 bottles",
+        "25.8 bottles",
+        "21 bottles"
+      ],
+      "answer": 1,
+      "explanation": "1 + (20 / 25) = 1.80 bottles, using the configured conversion factors.",
+      "source": "docs/inventory/stock-taking-sessions.md"
+    },
+    {
+      "id": "inv-014",
+      "category": "inventory",
+      "difficulty": "medium",
+      "audience": ["storekeeper", "counter"],
+      "question": "Can you post only part of an unfinished stock-taking batch?",
+      "options": [
+        "Yes, from the All batches view",
+        "No, a batch must be fully counted before it can be posted",
+        "Yes, but only in the Legacy workflow",
+        "Yes, with administrator permission"
+      ],
+      "answer": 1,
+      "explanation": "A batch must be fully counted before posting; the API does not post a subset of an unfinished batch.",
+      "source": "docs/inventory/stock-taking-sessions.md"
+    },
+    {
+      "id": "inv-015",
+      "category": "inventory",
+      "difficulty": "hard",
+      "audience": ["storekeeper", "counter"],
+      "question": "How does 'Recount selected items' differ from reopening a Ready batch?",
+      "options": [
+        "They are identical",
+        "Recount clears saved counts/reasons and captures fresh references; reopen preserves the original reference",
+        "Recount is only available for posted batches",
+        "Reopen creates a new session"
+      ],
+      "answer": 1,
+      "explanation": "Recount explicitly clears counts and reasons and gets fresh references; reopening a Ready batch fixes a typo while preserving the reference.",
+      "source": "docs/inventory/stock-taking-sessions.md"
+    },
+    {
+      "id": "inv-016",
+      "category": "inventory",
+      "difficulty": "medium",
+      "audience": ["storekeeper", "manager"],
+      "question": "When a stock-taking session is closed, what does completion cover?",
+      "options": [
+        "The entire company inventory",
+        "Only the items selected for that session",
+        "Only one category",
+        "All batches including drafts"
+      ],
+      "answer": 1,
+      "explanation": "Completion covers selected items, not the entire company inventory.",
+      "source": "docs/inventory/stock-taking-sessions.md"
+    },
+
+    {
+      "id": "rep-001",
+      "category": "reports",
+      "difficulty": "medium",
+      "audience": ["manager", "accounts", "supervisor"],
+      "question": "How do you produce a sales report for yesterday?",
+      "options": [
+        "Open today's report and subtract it",
+        "Set yesterday as both the start and end date in the relevant sales report",
+        "Open the current stock report",
+        "Open the low-stock report"
+      ],
+      "answer": 1,
+      "explanation": "For yesterday's sales, select yesterday as both start and end date in the relevant sales report.",
+      "source": "user-manual:reports"
+    },
+    {
+      "id": "rep-002",
+      "category": "reports",
+      "difficulty": "easy",
+      "audience": ["manager", "storekeeper"],
+      "question": "Which report would you use to check current item quantities?",
+      "options": [
+        "Bills report",
+        "Stock Statement / inventory stock reports",
+        "Orders report",
+        "Menu report"
+      ],
+      "answer": 1,
+      "explanation": "A current-stock report is not a historical sales report; use Stock Statement and related inventory reports.",
+      "source": "user-manual:reports"
+    },
+    {
+      "id": "rep-003",
+      "category": "reports",
+      "difficulty": "easy",
+      "audience": ["manager", "accounts"],
+      "question": "Which export controls may be available on a report?",
+      "options": [
+        "Download Excel and Print PDF, where shown",
+        "Only PDF, on every report",
+        "No exports are available",
+        "Email delivery only"
+      ],
+      "answer": 0,
+      "explanation": "Reports expose controls such as Download Excel and Print PDF where available.",
+      "source": "user-manual:reports"
+    },
+    {
+      "id": "rep-004",
+      "category": "reports",
+      "difficulty": "medium",
+      "audience": ["manager", "accounts"],
+      "question": "What should you avoid doing with revenue data in different currencies?",
+      "options": [
+        "Showing it in a chart",
+        "Adding different currencies together",
+        "Filtering by date",
+        "Printing it as A4"
+      ],
+      "answer": 1,
+      "explanation": "Use the chart period controls; do not add different currencies together.",
+      "source": "user-manual:dashboard"
+    },
+    {
+      "id": "rep-005",
+      "category": "reports",
+      "difficulty": "hard",
+      "audience": ["manager", "admin"],
+      "question": "Which set of reports is NOT included in the active navigation of this build?",
+      "options": [
+        "Bills, Orders and Menus",
+        "Low Stock and Consumption",
+        "Expenses, User Activity and Inventory Valuation",
+        "Tips and Purchases"
+      ],
+      "answer": 2,
+      "explanation": "No standalone Expenses, User Activity or Inventory Valuation report is in the active navigation.",
+      "source": "user-manual:reports"
+    },
+
+    {
+      "id": "set-001",
+      "category": "setup",
+      "difficulty": "medium",
+      "audience": ["admin", "manager"],
+      "question": "What does suspending a user block?",
+      "options": [
+        "Only new password sign-ins",
+        "Sign-in, waiter PIN use and existing sessions",
+        "Only access to reports",
+        "Nothing; it only changes a label"
+      ],
+      "answer": 1,
+      "explanation": "A suspended account cannot sign in, use a waiter PIN or continue an existing session.",
+      "source": "user-manual:users"
+    },
+    {
+      "id": "set-002",
+      "category": "setup",
+      "difficulty": "medium",
+      "audience": ["admin", "manager"],
+      "question": "Where do you find suspended users in the Users list?",
+      "options": [
+        "They are shown in the default active list",
+        "Use the 'Suspended' status filter; they are hidden from the active list",
+        "They are deleted from the list",
+        "Only in the Reports module"
+      ],
+      "answer": 1,
+      "explanation": "Suspended users are hidden by default; the Suspended status filter reveals them.",
+      "source": "user-manual:users"
+    },
+    {
+      "id": "set-003",
+      "category": "setup",
+      "difficulty": "easy",
+      "audience": ["admin", "manager"],
+      "question": "Who is affected when a role's permissions are changed?",
+      "options": [
+        "Only the user you are currently editing",
+        "Every user assigned that role",
+        "Only administrators",
+        "Nobody until the server restarts"
+      ],
+      "answer": 1,
+      "explanation": "A permission change can affect every user with that role.",
+      "source": "user-manual:users"
+    },
+    {
+      "id": "set-004",
+      "category": "setup",
+      "difficulty": "medium",
+      "audience": ["admin"],
+      "question": "Which are the four department types in Bivio?",
+      "options": [
+        "Admin, Consumption, Production, Service",
+        "Sales, Purchase, Stock, HR",
+        "Kitchen, Bar, Hall, Store",
+        "Main, Sub, Virtual, Guest"
+      ],
+      "answer": 0,
+      "explanation": "Department types are Admin, Consumption, Production and Service.",
+      "source": "user-manual:departments"
+    },
+    {
+      "id": "set-005",
+      "category": "setup",
+      "difficulty": "hard",
+      "audience": ["admin", "stock manager"],
+      "question": "Which fields does a product category form contain in this build?",
+      "options": [
+        "Name only",
+        "Name, Items Group and Departments",
+        "Name, Units and Min Stock",
+        "Name, Currency and Price"
+      ],
+      "answer": 0,
+      "explanation": "The product category form contains only Name; the department is set on the product itself. Item categories use a group and departments.",
+      "source": "user-manual:categories"
+    },
+    {
+      "id": "set-006",
+      "category": "setup",
+      "difficulty": "medium",
+      "audience": ["admin"],
+      "question": "What image types and size limit apply when uploading a company logo?",
+      "options": [
+        "PNG, JPG, JPEG or WEBP, up to 1 MB",
+        "Any image format, up to 10 MB",
+        "SVG only, with no size limit",
+        "GIF only, up to 5 MB"
+      ],
+      "answer": 0,
+      "explanation": "Upload a PNG, JPG, JPEG or WEBP image no larger than 1 MB.",
+      "source": "user-manual:company"
+    },
+    {
+      "id": "set-007",
+      "category": "setup",
+      "difficulty": "medium",
+      "audience": ["super admin"],
+      "question": "What must be true of a destination company before setup can be cloned into it?",
+      "options": [
+        "It must already have a full setup",
+        "It must have no existing setup",
+        "It must be archived",
+        "It must have active sales"
+      ],
+      "answer": 1,
+      "explanation": "Setup is copied only when the destination company has no existing setup.",
+      "source": "user-manual:company-clone"
+    },
+    {
+      "id": "set-008",
+      "category": "setup",
+      "difficulty": "medium",
+      "audience": ["admin"],
+      "question": "What does applying a Starter Catalog create?",
+      "options": [
+        "Opening stock and sales transactions",
+        "Setup records such as categories, items, products and prices",
+        "Paid bills and receipts",
+        "Guest QR tokens"
+      ],
+      "answer": 1,
+      "explanation": "Starter Catalog creates setup records, not opening stock or sales transactions.",
+      "source": "user-manual:starter-catalog"
+    },
+    {
+      "id": "set-009",
+      "category": "setup",
+      "difficulty": "easy",
+      "audience": ["admin", "all"],
+      "question": "Should a super-admin account be used for routine cashier work?",
+      "options": [
+        "Yes, it is recommended",
+        "No; use a role with only the required privileges",
+        "Yes, but only in Quick Mode",
+        "Only when the printer is offline"
+      ],
+      "answer": 1,
+      "explanation": "Do not use a super-admin account for routine cashier work.",
+      "source": "user-manual:users"
+    },
+
+    {
+      "id": "qck-001",
+      "category": "quick",
+      "difficulty": "medium",
+      "audience": ["waiter", "cashier"],
+      "question": "How do PIN sessions affect the password-change prompt in Quick Mode?",
+      "options": [
+        "They must change their password before taking orders",
+        "They bypass password-change prompts and cannot open the change-password page",
+        "They are logged out every hour",
+        "They require email sign-in for every order"
+      ],
+      "answer": 1,
+      "explanation": "PIN sessions bypass password-change prompts and cannot open the change-password page.",
+      "source": "docs-internal/quick-mode.md"
+    },
+    {
+      "id": "qck-002",
+      "category": "quick",
+      "difficulty": "medium",
+      "audience": ["waiter"],
+      "question": "What is true about a Quick Mode order draft?",
+      "options": [
+        "It is an offline submission queue",
+        "It is saved locally per company and user and survives reloads",
+        "It is deleted on every reload",
+        "It is shared with all waiters in the company"
+      ],
+      "answer": 1,
+      "explanation": "Drafts are saved locally per company and user, survive reloads, but are not an offline submission queue.",
+      "source": "docs-internal/quick-mode.md"
+    },
+    {
+      "id": "qck-003",
+      "category": "quick",
+      "difficulty": "medium",
+      "audience": ["waiter", "supervisor"],
+      "question": "Which bills can a waiter see in Quick Mode?",
+      "options": [
+        "All bills in the company",
+        "Only their own bills",
+        "Only guest QR bills",
+        "No bills at all"
+      ],
+      "answer": 1,
+      "explanation": "Waiters see only their own bills; other accounts see all bills only with bill-view access.",
+      "source": "docs-internal/quick-mode.md"
+    },
+    {
+      "id": "qck-004",
+      "category": "quick",
+      "difficulty": "medium",
+      "audience": ["waiter", "cashier"],
+      "question": "Which payment shortcuts are available in Quick Mode?",
+      "options": [
+        "Full, half or quarter of the balance",
+        "Full payment only",
+        "Any arbitrary amount",
+        "Tips only"
+      ],
+      "answer": 0,
+      "explanation": "Quick Mode records a full, half or quarter-balance payment after choosing a payment mode.",
+      "source": "docs-internal/quick-mode.md"
+    },
+    {
+      "id": "qck-005",
+      "category": "quick",
+      "difficulty": "medium",
+      "audience": ["waiter"],
+      "question": "Which items appear in the Quick Mode Store section?",
+      "options": [
+        "Every inventory item",
+        "Only items linked from the selected department's item categories",
+        "Only sales products",
+        "Only low-stock items"
+      ],
+      "answer": 1,
+      "explanation": "Store shows retail-unit quantities from item categories linked to the chosen department; unlinked items are hidden.",
+      "source": "docs-internal/quick-mode.md"
+    },
+    {
+      "id": "qck-006",
+      "category": "quick",
+      "difficulty": "hard",
+      "audience": ["waiter", "supervisor"],
+      "question": "What happens in Quick Mode when a product has no price in the selected currency?",
+      "options": [
+        "The price is assumed to be zero",
+        "It is converted using the latest exchange rate automatically",
+        "It is labelled as missing and prevents creating a quick bill in that currency",
+        "The product is hidden from the menu"
+      ],
+      "answer": 2,
+      "explanation": "Missing prices are labelled and block creating a quick bill in that currency.",
+      "source": "docs-internal/quick-mode.md"
+    },
+
+    {
+      "id": "trb-001",
+      "category": "troubleshooting",
+      "difficulty": "easy",
+      "audience": ["all"],
+      "question": "A product is not visible in a list. What should you check first?",
+      "options": [
+        "Add a new product with the same name",
+        "Restart the device",
+        "Clear filters and check price, category and menu inclusion",
+        "Change the active company"
+      ],
+      "answer": 2,
+      "explanation": "Search/category/menu filters often limit the list; clear filters and check the product setup.",
+      "source": "user-manual:troubleshooting"
+    },
+    {
+      "id": "trb-002",
+      "category": "troubleshooting",
+      "difficulty": "easy",
+      "audience": ["cashier", "supervisor"],
+      "question": "Why can't you select an order when creating a bill?",
+      "options": [
+        "The client record is missing",
+        "The bill was already paid",
+        "The order is still Open or otherwise not eligible; close it first",
+        "The printer is offline"
+      ],
+      "answer": 2,
+      "explanation": "The bill form lists eligible closed/approved orders; an Open order is not selectable.",
+      "source": "user-manual:troubleshooting"
+    },
+    {
+      "id": "trb-003",
+      "category": "troubleshooting",
+      "difficulty": "easy",
+      "audience": ["waiter", "supervisor"],
+      "question": "A guest QR order has no assigned waiter. What should you do?",
+      "options": [
+        "Delete the order",
+        "Use 'Claim guest order' with an authorized account",
+        "Create a new bill without an order",
+        "Ignore it"
+      ],
+      "answer": 1,
+      "explanation": "An unclaimed open guest order can be claimed with order-edit permission.",
+      "source": "user-manual:troubleshooting"
+    },
+    {
+      "id": "trb-004",
+      "category": "troubleshooting",
+      "difficulty": "medium",
+      "audience": ["all"],
+      "question": "A save request times out. What is the safest next step?",
+      "options": [
+        "Retry several times immediately",
+        "Search for the record before trying again",
+        "Close the browser tab without checking",
+        "Change your password"
+      ],
+      "answer": 1,
+      "explanation": "A timeout may mean the record was saved; search for it before retrying to avoid duplicates.",
+      "source": "user-manual:troubleshooting"
+    },
+    {
+      "id": "trb-005",
+      "category": "troubleshooting",
+      "difficulty": "easy",
+      "audience": ["all"],
+      "question": "Why might a button in Bivio be disabled?",
+      "options": [
+        "Your browser zoom level",
+        "The network speed",
+        "Your role or the record's status does not allow the action",
+        "The screen size"
+      ],
+      "answer": 2,
+      "explanation": "A button may be hidden or disabled when your role or the record status does not allow the action.",
+      "source": "user-manual:troubleshooting"
+    }
+  ]
+}

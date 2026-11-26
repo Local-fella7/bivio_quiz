@@ -37,8 +37,10 @@ class QuizQuestion {
     return shuffledList;
   }
 
-  /// Parses a JSON map (from `assets/data/questions.json` or a remote API)
-  /// into a [QuizQuestion] instance.
+  /// Parses a flat JSON map into a [QuizQuestion] instance.
+  ///
+  /// The Bivio question bank uses a different envelope and is parsed by
+  /// [QuestionRepository.parseQuestionBank] instead.
   factory QuizQuestion.fromJson(Map<String, dynamic> json) {
     return QuizQuestion(
       text: json['text'] as String,
