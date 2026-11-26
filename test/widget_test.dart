@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bivio_quiz/models/quiz_question.dart';
 import 'package:bivio_quiz/quiz.dart';
 import 'package:bivio_quiz/services/question_repository.dart';
+import 'package:bivio_quiz/services/quiz_pdf_service.dart';
 import 'package:bivio_quiz/widgets/celebration_flowers.dart';
 
 /// Simple test repository that returns pre-loaded questions deterministically.
@@ -112,5 +113,56 @@ void main() {
 
     expect(find.text('Best: 100%'), findsOneWidget);
     expect(find.text('History (1)'), findsOneWidget);
+  });
+
+  test('QuizPdfService generates a valid multi-page PDF report', () async {
+    final rawJson = File('lib/data/bivio-quiz.json').readAsStringSync();
+    final questions = QuestionRepository.parseQuestionBank(
+      jsonDecode(rawJson) as Map<String, dynamic>,
+    );
+
+    final bytes = await const QuizPdfService().generate(
+      questions: questions,
+      chosenAnswers: questions.map((q) => q.correctAnswer).toList(),
+      category: 'All',
+      difficulty: 'All',
+      bestPercentage: 100,
+      generatedAt: DateTime(2026, 11, 26, 14, 45),
+    );
+
+    expect(String.fromCharCodes(bytes.take(5)), '%PDF-');
+    expect(bytes.length, greaterThan(100000));
+  });
+
+  testWidgets('Share Result offers PDF share, download, and text copy',
+      (WidgetTester tester) async {
+    const question = QuizQuestion(
+      text: 'Is this a single-question quiz?',
+      answers: ['Yes', 'No'],
+      category: 'Essentials & Access',
+      difficulty: 'Easy',
+      explanation: 'This makes the results screen quick to reach in tests.',
+    );
+
+    await tester.pumpWidget(
+      Quiz(questionRepository: _InMemoryQuestionRepository([question])),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Start Quiz (1 questions)'));
+    await tester.tap(find.text('Start Quiz (1 questions)'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Yes'));
+    await tester.tap(find.text('Yes'));
+    await tester.pump(const Duration(milliseconds: 700));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Share Result'));
+    await tester.tap(find.text('Share Result'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Share PDF'), findsOneWidget);
+    expect(find.text('Download / print PDF'), findsOneWidget);
+    expect(find.text('Copy text summary'), findsOneWidget);
   });
 }

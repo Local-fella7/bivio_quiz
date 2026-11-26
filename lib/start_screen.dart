@@ -296,11 +296,10 @@ class StartScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // White-tinted Bivio "B" logo at 80% opacity.
+                // Bivio brand image used throughout the quiz app and PDF reports.
                 Image.asset(
-                  'assets/images/quiz-photo.png',
+                  'assets/images/bivio.jpeg',
                   width: 210,
-                  color: const Color.fromARGB(204, 255, 255, 255),
                 ),
                 const SizedBox(height: 24),
 
