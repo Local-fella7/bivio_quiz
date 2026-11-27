@@ -51,6 +51,28 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  image_path: "assets/images/bivio_icon.png"
+  android: true
+  ios: true
+  min_sdk_android: 21
+  adaptive_icon_background: "#0A2463"
+  adaptive_icon_foreground: "assets/images/bivio_icon_foreground.png"
+  adaptive_icon_foreground_inset: 16
+  adaptive_icon_monochrome: "assets/images/bivio_icon_monochrome.png"
+  remove_alpha_ios: true
+  background_color_ios: "#0A2463"
+  web:
+    generate: true
+    background_color: "#0A2463"
+    theme_color: "#0A2463"
+  windows:
+    generate: true
+    icon_size: 48
+  macos:
+    generate: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
