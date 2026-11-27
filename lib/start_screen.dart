@@ -305,7 +305,7 @@ class StartScreen extends StatelessWidget {
 
                 // Main headline in warm cream (#F8FAE5).
                 Text(
-                  'Learn Bivio easy way',
+                  'Learn Bivio The Easy Way',
                   style: GoogleFonts.lato(
                     color: const Color(0xFFF8FAE5),
                     fontSize: 26,
